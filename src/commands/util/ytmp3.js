@@ -4,7 +4,7 @@ var getVideoId = require('get-video-id');
 var fetchVideoInfo = require('youtube-info');
 
 module.exports = client=>{
-    new client.Command("ytmp3","Youtube to mp3 lol","everyone",function(msg,args){
+    new client.Command("ytmp3","Youtube to mp3 lol","everyone",async (msg,args)=>{
         var url = args[0]
         var mytime = Date.now()
         msg.reply("Converting Please Wait")
