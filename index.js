@@ -29,6 +29,7 @@ client.err = log.err
 client.warn = log.warn
 client.prefix = config.prefix
 client.ownerid = config.ownerid
+client.folder = __dirname
 log.log("Preparing commands")
 client.commands = new enmap();
 require("./src/modules/loadCommands.js")(client)
