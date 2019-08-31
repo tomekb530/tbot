@@ -1,5 +1,5 @@
 module.exports = client=>{
-new client.Command("ping","Ping-Pong!","everyone",function(msg,args){
+new client.Command("ping","Ping-Pong!","everyone",async (msg,args)=>{
     msg.reply("Pong!")
 })
 }

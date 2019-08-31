@@ -21,6 +21,8 @@ bower_components
 .lock-wscript
 build/Release
 node_modules/
+.vscode/
+cache/
 jspm_packages/
 typings/
 *.tsbuildinfo

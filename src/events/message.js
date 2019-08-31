@@ -1,3 +1,5 @@
+var { RichEmbed } = require("discord.js")
+
 module.exports = client =>{
     new client.Event("message",(data)=>{
         if(data.content.startsWith(client.prefix)){
@@ -8,16 +10,19 @@ module.exports = client =>{
             cnt = splitter.join(" ")
             var args = splitter
             var func = client.commands.get(cmd)
+            data.replyErr = function(title,desc=""){
+                data.reply(new RichEmbed({"title":"Error: "+title,"description":desc,"color":0xff0000}))
+            }
             if(func){
                 if(func.permlvl == "everyone"){
                     func.execute(data,args)
                 }else if(func.permlvl == "owner" && data.author.id == client.ownerid){
                     func.execute(data,args)
                 }else{
-                    data.reply("Insufficient permissions!")
+                    data.replyErr("Insufficient permissions!")
                 }
             }else{
-            data.reply("Command not found!")
+            data.replyErr("Command not found!",`Try \`${client.prefix}help\``)
             }
         }
     })
