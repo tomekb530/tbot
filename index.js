@@ -36,7 +36,10 @@ require("./src/modules/loadCommands.js")(client)
 log.log("Preparing event handlers")
 client.events = new enmap();
 require("./src/modules/eventHandler.js")(client)
-
+if (!fs.existsSync(client.folder+"/cache")){
+   log.log("Creating cache folder!")
+   fs.mkdirSync(client.folder+"/cache");
+}
 log.log("Initiating discord login!")
 if(config.key != ""){
 client.login(config.key).catch((a)=>{log.err(a)});

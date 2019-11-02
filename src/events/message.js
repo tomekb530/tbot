@@ -3,6 +3,7 @@ var { RichEmbed } = require("discord.js")
 module.exports = client =>{
     new client.Event("message",(data)=>{
         if(data.content.startsWith(client.prefix)){
+            data.channel.startTyping()
             var cnt = data.content.substring(client.prefix.length)
             var splitter = cnt.split(" ")
             var cmd = splitter[0]
@@ -24,6 +25,7 @@ module.exports = client =>{
             }else{
             data.replyErr("Command not found!",`Try \`${client.prefix}help\``)
             }
+            data.channel.stopTyping()
         }
     })
 }
