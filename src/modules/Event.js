@@ -5,7 +5,7 @@ module.exports = client => {
             this.func = func
             client.events.set(this.name,this)
         }
-        execute(){
+        async execute(){
             try {
                 this.func(...arguments)
             }catch(err){
