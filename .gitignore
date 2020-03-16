@@ -42,3 +42,4 @@ typings/
 .dynamodb/
 #configs
 config.js
+google-credentials.json

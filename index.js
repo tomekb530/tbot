@@ -36,6 +36,8 @@ require("./src/modules/loadCommands.js")(client)
 log.log("Preparing event handlers")
 client.events = new enmap();
 require("./src/modules/eventHandler.js")(client)
+client.voicecommands = new enmap();
+
 
 log.log("Initiating discord login!")
 if(config.key != ""){
