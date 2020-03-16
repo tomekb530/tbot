@@ -125,5 +125,6 @@ new client.Command("voicerec","Voice Recognition (POF should work)","owner",asyn
           speaker = undefined
         })
       })
+  msg.reply("Voice Recognition Active")
 })
 }
