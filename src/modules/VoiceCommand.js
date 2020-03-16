@@ -1,5 +1,5 @@
 module.exports = client => {
-    return class Command{
+    return class VoiceCommand{
         constructor(name,info,permlvl,func){
             this.name = name
             this.info = info
