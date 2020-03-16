@@ -29,6 +29,7 @@ client.err = log.err
 client.warn = log.warn
 client.prefix = config.prefix
 client.ownerid = config.ownerid
+client.voiceprefix = config.voiceprefix
 client.folder = __dirname
 log.log("Preparing commands")
 client.commands = new enmap();
@@ -37,7 +38,7 @@ log.log("Preparing event handlers")
 client.events = new enmap();
 require("./src/modules/eventHandler.js")(client)
 client.voicecommands = new enmap();
-
+require("./src/modules/loadVoiceCommands.js")(client)
 
 log.log("Initiating discord login!")
 if(config.key != ""){

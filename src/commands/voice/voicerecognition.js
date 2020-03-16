@@ -73,10 +73,11 @@ class ConvertTo1ChannelStream extends Transform {
 }
 var speaker
 module.exports = client =>{
-new client.Command("voice","Voice Recognition (POF should work)","owner",async (msg,args)=>{
+new client.Command("voicerec","Voice Recognition (POF should work)","owner",async (msg,args)=>{
     var connection = await msg.member.voice.channel.join();
     var receiver = connection.receiver
     await playFile(connection, client.folder+"/assets/wrongChannelEn.mp3")
+
     connection.on('speaking', (user, speaking) => {
         if (!speaking || (speaker != user && speaker != undefined)) {
           return
@@ -100,7 +101,20 @@ new client.Command("voice","Voice Recognition (POF should work)","owner",async (
               .map(result => result.alternatives[0].transcript)
               .join('\n')
               .toLowerCase()
-            console.log(`Transcription: ${transcription}`)
+            if(transcription.startsWith(client.voiceprefix)){
+              var splitter = transcription.split(" ")
+              var cmd = splitter[0]
+              splitter.splice(0,1)
+              cnt = splitter.join(" ")
+              var args = splitter
+              var func = client.voicecommands.get(cmd)
+              connection.say = (txt)=>{
+                return saySmth(connection,txt)
+              }
+              if(func){
+                func.execute(args,connection)
+              }
+            }
           })
     
         var convertTo1ChannelStream = new ConvertTo1ChannelStream()
@@ -108,10 +122,7 @@ new client.Command("voice","Voice Recognition (POF should work)","owner",async (
         audioStream.pipe(convertTo1ChannelStream).pipe(recognizeStream)
     
         audioStream.on('end', async () => {
-          console.log('audioStream end')
-          setTimeout(()=>{
-            speaker = undefined
-          },2000)
+          speaker = undefined
         })
       })
 })

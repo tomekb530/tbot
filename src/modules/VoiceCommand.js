@@ -1,9 +1,8 @@
 module.exports = client => {
     return class VoiceCommand{
-        constructor(name,info,permlvl,func){
+        constructor(name,info,func){
             this.name = name
             this.info = info
-            this.permlvl = permlvl
             this.func = func
             client.voicecommands.set(this.name,this)
         }
