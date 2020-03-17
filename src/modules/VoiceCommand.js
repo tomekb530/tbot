@@ -6,9 +6,9 @@ module.exports = client => {
             this.func = func
             client.voicecommands.set(this.name,this)
         }
-        async execute(msg,args){
+        async execute(msg,args,speaker){
             try {
-                this.func(msg,args)
+                this.func(msg,args,speaker)
             }catch(err){
                 msg.channel.send("",new Discord.RichEmbed({"title":"Command Error: "+err.name,"description":err.message,"color":0xff0000}))
             }

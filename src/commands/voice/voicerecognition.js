@@ -21,7 +21,6 @@ async function saySmth(connection,text){
     const dispatcher = connection.play(streamifier.createReadStream(response.audioContent))
     dispatcher.setVolume(0.5)
     dispatcher.on('start', () => {
-      console.log('Playing')
     })
     dispatcher.on('finish', () => {
       resolve()
@@ -37,7 +36,7 @@ async function playFile(connection, filePath) {
       const dispatcher = connection.play(filePath)
       dispatcher.setVolume(0.1)
       dispatcher.on('start', () => {
-        console.log('Playing')
+        //console.log('Playing')
       })
       dispatcher.on('finish', () => {
         resolve()
@@ -71,18 +70,18 @@ class ConvertTo1ChannelStream extends Transform {
     next(null, convertBufferTo1Channel(data))
   }
 }
-var speaker
+
 module.exports = client =>{
 new client.Command("voicerec","Voice Recognition (POF should work)","owner",async (msg,args)=>{
     var connection = await msg.member.voice.channel.join();
     var receiver = connection.receiver
     await playFile(connection, client.folder+"/assets/wrongChannelEn.mp3")
-
+    msg.reply("Voice Recognition Active")
+    client.log("Voice Recognition Active")
     connection.on('speaking', (user, speaking) => {
-        if (!speaking || (speaker != user && speaker != undefined)) {
+        if (!speaking || user != msg.member.user ) {
           return
         } 
-        speaker = user
         var audioStream = receiver.createStream(user, { mode: 'pcm' })
         var requestConfig = {
           encoding: 'LINEAR16',
@@ -101,8 +100,10 @@ new client.Command("voicerec","Voice Recognition (POF should work)","owner",asyn
               .map(result => result.alternatives[0].transcript)
               .join('\n')
               .toLowerCase()
+              //console.log(user.username,transcription)
             if(transcription.startsWith(client.voiceprefix)){
               var splitter = transcription.split(" ")
+              splitter.splice(0,1)
               var cmd = splitter[0]
               splitter.splice(0,1)
               cnt = splitter.join(" ")
@@ -112,7 +113,7 @@ new client.Command("voicerec","Voice Recognition (POF should work)","owner",asyn
                 return saySmth(connection,txt)
               }
               if(func){
-                func.execute(args,connection)
+                func.execute(cnt,connection,user)
               }
             }
           })
@@ -122,9 +123,8 @@ new client.Command("voicerec","Voice Recognition (POF should work)","owner",asyn
         audioStream.pipe(convertTo1ChannelStream).pipe(recognizeStream)
     
         audioStream.on('end', async () => {
-          speaker = undefined
+          
         })
       })
-  msg.reply("Voice Recognition Active")
 })
 }
