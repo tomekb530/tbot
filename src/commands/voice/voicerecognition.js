@@ -76,7 +76,7 @@ new client.Command("voicerec","Voice Recognition (POF should work)","owner",asyn
     var connection = await msg.member.voice.channel.join();
     var receiver = connection.receiver
     await playFile(connection, client.folder+"/assets/wrongChannelEn.mp3")
-    msg.reply("Voice Recognition Active")
+    var rmsg = await msg.reply("Voice Recognition Active")
     client.log("Voice Recognition Active")
     connection.on('speaking', (user, speaking) => {
         if (!speaking || user != msg.member.user ) {
@@ -101,6 +101,7 @@ new client.Command("voicerec","Voice Recognition (POF should work)","owner",asyn
               .join('\n')
               .toLowerCase()
               //console.log(user.username,transcription)
+              rmsg.edit("Last heard: ```"+transcription+"```")
             if(transcription.startsWith(client.voiceprefix)){
               var splitter = transcription.split(" ")
               splitter.splice(0,1)

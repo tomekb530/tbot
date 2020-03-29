@@ -1,3 +1,4 @@
+require('dotenv').config()
 var Discord = require("discord.js")
 var client = new Discord.Client()
 var config = require("./config.js")
