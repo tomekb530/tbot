@@ -1,3 +1,4 @@
+require('dotenv').config()
 var Discord = require("discord.js")
 var client = new Discord.Client()
 var config = require("./config.js")
@@ -29,6 +30,7 @@ client.err = log.err
 client.warn = log.warn
 client.prefix = config.prefix
 client.ownerid = config.ownerid
+client.voiceprefix = config.voiceprefix
 client.folder = __dirname
 log.log("Preparing commands")
 client.commands = new enmap();
@@ -36,10 +38,16 @@ require("./src/modules/loadCommands.js")(client)
 log.log("Preparing event handlers")
 client.events = new enmap();
 require("./src/modules/eventHandler.js")(client)
+<<<<<<< HEAD
 if (!fs.existsSync(client.folder+"/cache")){
    log.log("Creating cache folder!")
    fs.mkdirSync(client.folder+"/cache");
 }
+=======
+client.voicecommands = new enmap();
+require("./src/modules/loadVoiceCommands.js")(client)
+
+>>>>>>> master
 log.log("Initiating discord login!")
 if(config.key != ""){
 client.login(config.key).catch((a)=>{log.err(a)});

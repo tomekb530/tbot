@@ -1,5 +1,4 @@
-var { RichEmbed } = require("discord.js")
-
+var inject = require("../modules/customFuncs.js")
 module.exports = client =>{
     new client.Event("message",(data)=>{
         if(data.content.startsWith(client.prefix)){
@@ -11,9 +10,7 @@ module.exports = client =>{
             cnt = splitter.join(" ")
             var args = splitter
             var func = client.commands.get(cmd)
-            data.replyErr = function(title,desc=""){
-                data.reply(new RichEmbed({"title":"Error: "+title,"description":desc,"color":0xff0000}))
-            }
+            inject(client,data)
             if(func){
                 if(func.permlvl == "everyone"){
                     func.execute(data,args)

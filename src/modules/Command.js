@@ -7,7 +7,7 @@ module.exports = client => {
             this.func = func
             client.commands.set(this.name,this)
         }
-        execute(msg,args){
+        async execute(msg,args){
             try {
                 this.func(msg,args)
             }catch(err){
