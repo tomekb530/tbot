@@ -19,7 +19,7 @@ async function saySmth(connection,text){
   const [response] = await textToSpeechClient.synthesizeSpeech(request);
   return new Promise((resolve, reject) => {
     const dispatcher = connection.play(streamifier.createReadStream(response.audioContent))
-    dispatcher.setVolume(0.5)
+    dispatcher.setVolume(1)
     dispatcher.on('start', () => {
     })
     dispatcher.on('finish', () => {
@@ -72,6 +72,18 @@ class ConvertTo1ChannelStream extends Transform {
 }
 
 module.exports = client =>{
+  function checkprefix(str){
+    return new Promise((resolve,reject)=>{
+      client.voiceprefix.forEach((pref)=>{
+        //console.log(str,pref)
+      if(str.startsWith(pref)){
+        resolve(true)
+      }
+    }
+    )
+    resolve(false)
+    })
+  }
 new client.Command("voicerec","Voice Recognition (POF should work)","owner",async (msg,args)=>{
     var connection = await msg.member.voice.channel.join();
     var receiver = connection.receiver
@@ -79,7 +91,7 @@ new client.Command("voicerec","Voice Recognition (POF should work)","owner",asyn
     var rmsg = await msg.reply("Voice Recognition Active")
     client.log("Voice Recognition Active")
     connection.on('speaking', (user, speaking) => {
-        if (!speaking || user != msg.member.user ) {
+        if (!speaking  ) {
           return
         } 
         var audioStream = receiver.createStream(user, { mode: 'pcm' })
@@ -101,8 +113,9 @@ new client.Command("voicerec","Voice Recognition (POF should work)","owner",asyn
               .join('\n')
               .toLowerCase()
               //console.log(user.username,transcription)
-              rmsg.edit("Last heard: ```"+transcription+"```")
-            if(transcription.startsWith(client.voiceprefix)){
+              rmsg.edit("Last heard: *"+user.username+"*```"+transcription+"```")
+              var ispref = await checkprefix(transcription)
+            if(ispref){
               var splitter = transcription.split(" ")
               splitter.splice(0,1)
               var cmd = splitter[0]
