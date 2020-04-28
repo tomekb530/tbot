@@ -1,10 +1,11 @@
 module.exports = client => {
     return class Command{
-        constructor(name,info,permlvl,func){
+        constructor(name,info,cat,permlvl,func){
             this.name = name
             this.info = info
             this.permlvl = permlvl
             this.func = func
+            this.category = cat
             client.commands.set(this.name,this)
         }
         async execute(msg,args){

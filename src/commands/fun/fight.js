@@ -26,8 +26,8 @@ var getMove = function(a,b){
     return attack
 }
 
-module.exports = client=>{
-    new client.Command("fight","Fight with another user!","everyone",async (msg,args)=>{
+module.exports = (client,folder)=>{
+    new client.Command("fight","Fight with another user!",folder,"everyone",async (msg,args)=>{
 	var mentions = msg.mentions.users.first(2)
         var fighter1
         var fighter2

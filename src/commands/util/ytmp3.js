@@ -3,8 +3,8 @@ var { Attachment } = require('discord.js');
 var getVideoId = require('get-video-id');
 var fetchVideoInfo = require('youtube-info');
 
-module.exports = client=>{
-    new client.Command("ytmp3","Youtube to mp3 lol","everyone",async (msg,args)=>{
+module.exports = (client,folder)=>{
+    new client.Command("ytmp3","Youtube to mp3 lol",folder,"everyone",async (msg,args)=>{
         var url = args[0]
         var mytime = Date.now()
         msg.reply("Converting Please Wait")

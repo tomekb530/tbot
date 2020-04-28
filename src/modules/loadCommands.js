@@ -5,7 +5,7 @@ module.exports = client => {
           if(client.fs.lstatSync(folder+"/"+data).isDirectory()){
             loadFolder(folder+"/"+data)
           }else if(client.fs.lstatSync(folder+"/"+data).isFile()){
-            require("../../"+folder+"/"+data)(client)
+            require("../../"+folder+"/"+data)(client,folder)
             client.log("Loaded Command",data)
           }
         })

@@ -59,8 +59,6 @@ client.VoiceStuff = new VoiceStuff()
 client.voicecommands = new enmap();
 require("./src/modules/loadVoiceCommands.js")(client)
 
-
-
 log.log("Initiating discord login!")
 if(config.key != ""){
 client.login(config.key).catch((a)=>{log.err(a)});

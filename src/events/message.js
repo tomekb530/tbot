@@ -1,6 +1,6 @@
 var inject = require("../modules/customFuncs.js")
 module.exports = client =>{
-    new client.Event("message",(data)=>{
+    new client.Event("message",async (data)=>{
         if(data.content.startsWith(client.prefix)){
             data.channel.startTyping()
             var cnt = data.content.substring(client.prefix.length)
@@ -12,12 +12,25 @@ module.exports = client =>{
             var func = client.commands.get(cmd)
             inject(client,data)
             if(func){
+                data.func = func
                 if(func.permlvl == "everyone"){
-                    func.execute(data,args)
+                    try{
+                        func.execute(data,args)
+                    }catch(err){
+                        msg.replyErr(err.name,err.message)
+                    }
                 }else if(func.permlvl == "owner" && data.author.id == client.ownerid){
-                    func.execute(data,args)
+                    try{
+                        func.execute(data,args)
+                    }catch(err){
+                        msg.replyErr(err.name,err.message)
+                    }
                 }else if(func.permlvl == "fagmin" && data.member.hasPermission("BAN_MEMBERS") ){
-                    func.execute(data,args)
+                    try{
+                        func.execute(data,args)
+                    }catch(err){
+                        msg.replyErr(err.name,err.message)
+                    }
                 }else{
                     data.replyErr("Insufficient permissions!")
                 }

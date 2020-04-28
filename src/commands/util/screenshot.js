@@ -8,8 +8,8 @@ var addhttp = function(url) {
     return url;
 }
 
-module.exports = client=>{
-    new client.Command("screenshot","Take a screenshot of webpage!","everyone",async (msg,args)=>{
+module.exports = (client,folder)=>{
+    new client.Command("screenshot","Take a screenshot of webpage!",folder,"everyone",async (msg,args)=>{
       var url = addhttp(args[0])
       var browser = await puppeteer.launch()
       var page = await browser.newPage()

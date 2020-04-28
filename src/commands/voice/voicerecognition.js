@@ -1,7 +1,7 @@
 var Discord = require("discord.js")
 var util = require("util")
 
-module.exports = client =>{
+module.exports = (client,folder)=>{
   function checkprefix(str){
     return new Promise((resolve,reject)=>{
       client.voiceprefix.forEach((pref)=>{
@@ -14,7 +14,7 @@ module.exports = client =>{
     resolve(false)
     })
   }
-new client.Command("voicerec","Voice Recognition","owner",async (msg,args)=>{
+new client.Command("voicerec","Voice Recognition",folder,"owner",async (msg,args)=>{
     var connection = await msg.member.voice.channel.join();
     var receiver = connection.receiver
     await client.VoiceStuff.playFile(connection, client.folder+"/assets/wrongChannelEn.mp3")
@@ -47,7 +47,7 @@ new client.Command("voicerec","Voice Recognition","owner",async (msg,args)=>{
         }) 
     })
 })
-new client.Command("stopvoicerec","Stop Voice Recognition","owner",async (msg,args)=>{
+new client.Command("stopvoicerec","Stop Voice Recognition",folder,"owner",async (msg,args)=>{
   await msg.member.voice.channel.leave();
   await msg.reply("Disconnected and disabled voiceRecognition")
 })

@@ -23,6 +23,7 @@
     "node-opus": "^0.3.3",
     "opusscript": "0.0.7",
     "puppeteer": "^1.19.0",
+    "seedrandom": "^3.0.5",
     "streamifier": "^0.1.1",
     "words-to-numbers": "^1.5.1",
     "youtube-audio-stream": "^0.3.1",
