@@ -16,6 +16,8 @@ module.exports = client =>{
                     func.execute(data,args)
                 }else if(func.permlvl == "owner" && data.author.id == client.ownerid){
                     func.execute(data,args)
+                }else if(func.permlvl == "fagmin" && data.member.hasPermission("BAN_MEMBERS") ){
+                    func.execute(data,args)
                 }else{
                     data.replyErr("Insufficient permissions!")
                 }

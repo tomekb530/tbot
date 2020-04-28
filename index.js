@@ -32,6 +32,17 @@ client.prefix = config.prefix
 client.ownerid = config.ownerid
 client.voiceprefix = config.voiceprefix
 client.folder = __dirname
+log.log("Loading Settings")
+client.settings = new enmap({
+   name:"settings",
+   autoFetch:true,
+   dataDir:"./cache"
+});
+
+if(!client.settings.get("hardranks")){
+   client.settings.set("hardranks",{})
+}
+
 log.log("Preparing commands")
 client.commands = new enmap();
 require("./src/modules/loadCommands.js")(client)
@@ -47,6 +58,7 @@ client.VoiceStuff = new VoiceStuff()
 
 client.voicecommands = new enmap();
 require("./src/modules/loadVoiceCommands.js")(client)
+
 
 
 log.log("Initiating discord login!")

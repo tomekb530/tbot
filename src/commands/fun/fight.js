@@ -46,7 +46,7 @@ module.exports = client=>{
         if(fighter1 && fighter2){
             var turn = true
             var history = "LETS FIGHT!"
-            var embed = new RichEmbed({
+            var embed = {
             "title": "**EPIC FIGHT**",
             "color": 8489110,
             "footer": {
@@ -68,8 +68,8 @@ module.exports = client=>{
                   "value": "```xl\n"+history+"```"
                 }
               ]
-            })
-            var fight = await msg.channel.send(embed)
+            }
+            var fight = await msg.channel.send("",{embed:embed})
             var interval = setInterval(()=>{
                 if(turn){
                     turn = false
@@ -79,7 +79,7 @@ module.exports = client=>{
                     embed.fields[0].name = fighter1.username+` (${hp1})`
                     embed.fields[1].name = fighter2.username+` (${hp2})`
                     embed.fields[2].value = "```xl\n"+history+"```"
-                    fight.edit(embed)
+                    fight.edit("",{embed:embed})
                 }else{
                     turn = true
                     var move = getMove(fighter2.username,fighter1.username)
@@ -88,17 +88,17 @@ module.exports = client=>{
                     embed.fields[0].name = fighter1.username+` (${hp1})`
                     embed.fields[1].name = fighter2.username+` (${hp2})`
                     embed.fields[2].value = "```xl\n"+history+"```"
-                    fight.edit(embed)
+                    fight.edit("",{embed:embed})
                 }
                 if(hp1 <= 0){
                     history = fighter2.username+" WINS"
                     embed.fields[2].value = "```xl\n"+history+"```"
-                    fight.edit(embed)
+                    fight.edit("",{embed:embed})
                     clearInterval(interval)
                 }else if(hp2 <= 0){
                     history = fighter1.username+" WINS"
                     embed.fields[2].value = "```xl\n"+history+"```"
-                    fight.edit(embed)
+                    fight.edit("",{embed:embed})
                     clearInterval(interval)
                 }
             },2000)
