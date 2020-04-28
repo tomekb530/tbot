@@ -1,7 +1,7 @@
 # tbot
 
 ## Functions
--Maybe I Will write them someday (sorry)
+-Maybe I Will write them someday (sorry)  
 -Probably shitty code (sorry for that too, i'm still only learning!)
 
 ## Installation
