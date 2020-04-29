@@ -31,6 +31,7 @@ module.exports = (client,msg) => {
         repl.delete()
         msg.delete()
         })
+        return repl
     }
     msg.reply = async function(title,desc){
         var embed = {
@@ -62,5 +63,6 @@ module.exports = (client,msg) => {
         repl.delete()
         msg.delete()
         })
+        return repl
     }
 }
