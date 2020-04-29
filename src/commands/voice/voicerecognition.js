@@ -27,7 +27,9 @@ new client.Command("voicerec","Voice Recognition",folder,"owner",async (msg,args
         var audioStream = receiver.createStream(user, { mode: 'pcm' })
         var listener = client.VoiceStuff.listen(audioStream)
         listener.on("said",async (transcription)=>{
-          rmsg.edit("Last heard: *"+user.username+"*```"+transcription+"```")
+          if(rmsg){
+            rmsg.edit("Last heard: *"+user.username+"*```"+transcription+"```")
+          }
           var ispref = await checkprefix(transcription)
         if(ispref){
           var splitter = transcription.split(" ")
