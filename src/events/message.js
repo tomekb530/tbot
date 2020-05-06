@@ -4,7 +4,7 @@ module.exports = client =>{
         if(data.content.startsWith(client.prefix)){
             data.channel.startTyping()
             var cnt = data.content.substring(client.prefix.length)
-            var splitter = cnt.split(" ")
+            var splitter = cnt.split(/[ ]+/)
             var cmd = splitter[0]
             splitter.splice(0,1)
             cnt = splitter.join(" ")

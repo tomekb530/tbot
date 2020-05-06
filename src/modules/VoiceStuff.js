@@ -71,7 +71,7 @@ return class VoiceStuff{
         })
       }
 
-    listen(audioStream){
+    listen(audioStream){ //NEED TO REWORK OR SMTH CAUSE ERRORS ARE GAY OK
         var emitter = new EventEmitter()
         var requestConfig = {
             encoding: 'LINEAR16',

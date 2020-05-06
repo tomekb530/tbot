@@ -33,16 +33,12 @@ client.ownerid = config.ownerid
 client.voiceprefix = config.voiceprefix
 client.folder = __dirname
 log.log("Loading Settings")
-client.settings = new enmap({
+client.settingsbase = new enmap({
    name:"settings",
    autoFetch:true,
    dataDir:"./cache"
 });
-
-if(!client.settings.get("hardranks")){
-   client.settings.set("hardranks",{})
-}
-
+require("./src/modules/Settings.js")(client)
 log.log("Preparing commands")
 client.commands = new enmap();
 require("./src/modules/loadCommands.js")(client)
