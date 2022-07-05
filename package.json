@@ -9,7 +9,7 @@
   "author": "Tomekb530",
   "license": "MIT",
   "dependencies": {
-    "@discordjs/opus": "^0.1.0",
+    "@discordjs/opus": "^0.8.0",
     "@google-cloud/speech": "^3.6.0",
     "@google-cloud/text-to-speech": "^2.3.0",
     "better-sqlite-pool": "^0.3.0",
